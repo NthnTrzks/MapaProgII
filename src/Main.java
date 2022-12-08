@@ -60,7 +60,7 @@ class Enfermeira extends Pessoa{
 }
 
 
-class Cidadao extends Pessoa{
+class Cidadao extends Pessoa {
 
     LocalDate vacina1;
     LocalDate vacina2;
@@ -76,7 +76,7 @@ class Cidadao extends Pessoa{
         super.setCpf(cpf);
     }
 
-    public void setvcn(LocalDate vacina1, LocalDate vacina2, LocalDate vacina3, LocalDate vacina4){
+    public void setvcn(LocalDate vacina1, LocalDate vacina2, LocalDate vacina3, LocalDate vacina4) {
         this.vacina1 = vacina1;
         this.vacina2 = vacina2;
         this.vacina3 = vacina3;
@@ -94,98 +94,95 @@ class Cidadao extends Pessoa{
     }
 
     @Override
-    public String toString(){
-        return "nome: " + nome +  " saldo: " + cpf + "data primeira vacina: " + vacina1 + "data segunda vacina: " + vacina2+ "data terceira vacina: " + vacina3 + "data quarta vacina: " + vacina4;
+    public String toString() {
+        return "nome: " + nome + " cpf: " + cpf + " data primeira vacina: " + vacina1 + " data segunda vacina: " + vacina2 + " data terceira vacina: " + vacina3 + " data quarta vacina: " + vacina4;
     }
 
 
 
 
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
-public class Main{
+        public static void main(String[] arg){
+            int opt = 1;
+            int i = 1;
+            int ii = 1;
+            List<Cidadao> listCid = new ArrayList<>();
+            Scanner sc = new Scanner (System.in);
+            System.out.println("Informe o nome da Enfermeira\n");
+            String name = sc.nextLine();
+            System.out.println("Informe o cpf da Enfemeira\n");
+            String cpf = sc.nextLine();
+            Enfermeira myEnf = new Enfermeira(name,cpf);
+            myEnf.msgBemVindo();
 
-    public static void clearScreen() {  
-        System.out.print("\033[H\033[2J");  
-        System.out.flush();  
-    }  
+            while(i == 1){
 
-    public static void main(String[] arg){
-        int opt = 1;
-        int i = 1;
-        int ii = 1;
-        List<Cidadao> listCid = new ArrayList<>();
-        Scanner sc = new Scanner (System.in);
-        System.out.println("Informe o nome da Enfermeira\n");
-        String name = sc.nextLine();
-        System.out.println("Informe o cpf da Enfemeira\n");
-        String cpf = sc.nextLine();
-        Enfermeira myEnf = new Enfermeira(name,cpf);
-        myEnf.msgBemVindo();
+                System.out.println("[1] - Vacinar Cidadão\n[2] - Listar Cidadões\n[Qualquer Outra Tecla para sair]");
+                opt = sc.nextInt();
 
-        while(i == 1){
-
-            System.out.println("[1] - Vacinar Cidadão\n[2] - Listar Cidadões\n[Qualquer Outra Tecla para sair]");
-            opt = sc.nextInt();
-
-            switch (opt){
-                case 1:
-                    Scanner sc2 = new Scanner (System.in);
-                    System.out.println("Informe o cpf do Cidadão");
-                    String nomeCid = sc2.nextLine();
-                    System.out.println("Informe o nome do Cidadão");
-                    String cpfCid = sc2.nextLine();
+                switch (opt){
+                    case 1:
+                        Scanner sc2 = new Scanner (System.in);
+                        System.out.println("Informe o cpf do Cidadão");
+                        String nomeCid = sc2.nextLine();
+                        System.out.println("Informe o nome do Cidadão");
+                        String cpfCid = sc2.nextLine();
 
 
-                    while(ii == 1){
-                        System.out.println("Informe a data da Primeira Vacina");
-                        LocalDate vc1 = LocalDate.parse(sc2.nextLine(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
-                        System.out.println("Informe a data da Segunda Vacina");
-                        LocalDate vc2 = LocalDate.parse(sc2.nextLine(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
-                        LocalDate prox = vc1.plusDays(121);
-                        clearScreen();
-
-                        if(vc2.isAfter(prox)){
-                            System.out.println("Informe a data da Terceira Vacina");
-                            LocalDate vc3 = LocalDate.parse(sc2.nextLine(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+                        while(ii == 1){
+                            System.out.println("Informe a data da Primeira Vacina");
+                            LocalDate vc1 = LocalDate.parse(sc2.nextLine(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+                            System.out.println("Informe a data da Segunda Vacina");
+                            LocalDate vc2 = LocalDate.parse(sc2.nextLine(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+                            LocalDate prox = vc1.plusDays(121);
                             clearScreen();
-                            LocalDate prox2 = vc2.plusDays(121);
-                            if (vc3.isAfter(prox2)){
-                                System.out.println("Informe a data da Quarta Vacina");
-                                LocalDate vc4 = LocalDate.parse(sc2.nextLine(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
-                                LocalDate prox3 = vc3.plusDays(121);
+
+                            if(vc2.isAfter(prox)){
+                                System.out.println("Informe a data da Terceira Vacina");
+                                LocalDate vc3 = LocalDate.parse(sc2.nextLine(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
                                 clearScreen();
-                                if (vc4.isAfter(prox3)){
-                                    Cidadao myCid = new Cidadao(nomeCid, cpfCid);
-                                    myCid.setvcn(vc1,vc2,vc3,vc4);
-                                    listCid.add(myCid);
-                                    ii = 0;
-                                }else{
-                                    System.out.println("Periodo entre vacinas não é válido, tente novamente");
+                                LocalDate prox2 = vc2.plusDays(121);
+                                if (vc3.isAfter(prox2)){
+                                    System.out.println("Informe a data da Quarta Vacina");
+                                    LocalDate vc4 = LocalDate.parse(sc2.nextLine(), DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+                                    LocalDate prox3 = vc3.plusDays(121);
+                                    clearScreen();
+                                    if (vc4.isAfter(prox3)){
+                                        Cidadao myCid = new Cidadao(nomeCid, cpfCid);
+                                        myCid.setvcn(vc1,vc2,vc3,vc4);
+                                        listCid.add(myCid);
+                                        ii = 0;
+                                    }else{
+                                        System.out.println("Periodo entre vacinas não é válido, tente novamente");
+                                    }
                                 }
+                            }else{
+                                System.out.println("Periodo entre vacinas não é válido, tente novamente");
+
                             }
-                        }else{
-                            System.out.println("Periodo entre vacinas não é válido, tente novamente");
 
                         }
+                        break;
+                    case 2:
 
-                    }
-                    break;
-                case 2:
+                        System.out.println(listCid);
 
-                    System.out.println();
+                        break;
+                    default:
+                        System.out.println("Saindo");
+                        break;
+                }
 
-                    break;
-                default:
-                    System.out.println("Saindo");
-                    break;
+                System.out.println("[1] - Fazer uma nova operação\n[2] - Sair");
+                i = sc.nextInt();
+
             }
-
-            System.out.println("[1] - Fazer uma nova operação\n[2] - Sair");
-            i = sc.nextInt();
-
         }
     }
-}}
 
 
 
